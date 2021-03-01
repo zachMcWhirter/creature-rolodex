@@ -19,18 +19,31 @@ class App extends Component {
   }
   
   render() {
+
+      // Using destructuring, we can pull properties off of an 
+      // existing object and set them to constants that we can use
+      // Here we use the this.state object to pull the monsters and
+      // searchField properties and assign them to constants.
+    const { monsters, searchField } = this.state;
+
+      // Now we write a function that filters the monsters and assign it to a constant
+      // using the toLowerCase() method ensures that the search is NOT case sensitive
+    const filteredMonsters = monsters.filter(monster => 
+      monster.name.toLowerCase().includes(searchField.toLowerCase())
+      )
+
     return (
       <div className="App">
         <input 
           type='search'
           placeholder='search monsters'
-          onChange={e => {
-            this.setState({ searchField: e.target.value }, () => 
-              console.log(this.state)
-            );
-          }}
+            // We are defining the the onChange event function but not calling it here.
+            // Because calling setState inside the render will create an infinite loop
+          onChange={e => 
+            this.setState({ searchField: e.target.value })}
         />
-        <CardList monsters={this.state.monsters}>
+          {/* Pass in filteredMonsters to generate the filtered list */}
+        <CardList monsters={filteredMonsters}>
         </CardList>
       </div>
     );
