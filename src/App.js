@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CardList } from './components/card-list/card-list.component';
+import { SearchBox } from './components/search-box/search-box.component';
 import './App.css';
 
 class App extends Component {
@@ -34,12 +35,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input 
-          type='search'
+        <SearchBox 
           placeholder='search monsters'
-            // We are defining the the onChange event function but not calling it here.
-            // Because calling setState inside the render will create an infinite loop
-          onChange={e => 
+          handleChange={e => 
             this.setState({ searchField: e.target.value })}
         />
           {/* Pass in filteredMonsters to generate the filtered list */}
